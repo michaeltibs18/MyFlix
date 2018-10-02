@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.tibayancorp.myflix.helper.BottomNavigationViewHelper;
+
 public class Home extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -20,11 +22,14 @@ public class Home extends AppCompatActivity {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_movie:
+                    mTextMessage.setText(R.string.title_movie);
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.navigation_tv:
+                    mTextMessage.setText(R.string.title_tv);
+                    return true;
+                case R.id.navigation_user:
+                    mTextMessage.setText(R.string.title_user);
                     return true;
             }
             return false;
@@ -36,8 +41,9 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        mTextMessage = findViewById(R.id.message);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
