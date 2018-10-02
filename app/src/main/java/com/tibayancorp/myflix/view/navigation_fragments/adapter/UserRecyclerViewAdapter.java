@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.tibayancorp.myflix.R;
 import com.tibayancorp.myflix.view.navigation_fragments.UserFragment.OnListFragmentInteractionListener;
 import com.tibayancorp.myflix.view.navigation_fragments.dummy.DummyContent.DummyItem;
 
