@@ -3,7 +3,7 @@ package com.tibayancorp.myflix.model.Api_Calls;
 import android.util.Log;
 
 import com.tibayancorp.myflix.model.Entities.Movie;
-import com.tibayancorp.myflix.model.Entities.MovieResponse;
+import com.tibayancorp.myflix.model.Entities.MovieListResponse;
 import com.tibayancorp.myflix.model.Interface.MovieApiService;
 import com.tibayancorp.myflix.model.RetrofitFactory;
 import com.tibayancorp.myflix.utilities.API;
@@ -26,10 +26,10 @@ public class MovieApiCalls {
 
     public void callTopRatedMoviesAPI(){
         MovieApiService movieApiService = RetrofitFactory.callMovieInterface();
-        Call<MovieResponse> call = movieApiService.getTopRatedMovies(API.KEY);
-        call.enqueue(new Callback<MovieResponse>(){
+        Call<MovieListResponse> call = movieApiService.getTopRatedMovies(API.KEY);
+        call.enqueue(new Callback<MovieListResponse>(){
             @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+            public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
                 try {
                     if (response.isSuccessful()) {
                         List<Movie> movies = response.body().getResults();
@@ -41,7 +41,7 @@ public class MovieApiCalls {
                 }
             }
             @Override
-            public void onFailure(Call<MovieResponse> call, Throwable throwable) {
+            public void onFailure(Call<MovieListResponse> call, Throwable throwable) {
                 Log.e(TAG, throwable.toString());
             }
         });

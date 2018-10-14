@@ -26,6 +26,7 @@ public class RetrofitFactory {
      * Result: http://example.com/api/foo/bar/
      *
      */
+
     public static Retrofit getRetrofitInstance(){
         try {
             if (retrofit == null) {
