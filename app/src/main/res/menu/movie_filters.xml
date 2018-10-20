@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!-- From Menu Android Documentation for using android:onClick
+     *      Warning: If you obfuscate your code using ProGuard (or a similar tool),
+     *      be sure to exclude the method you specify in this attribute from renaming, because it can break the functionality.
+
+     the method in onClick is found in MoviesFragment.java since that's where the Menu is inflated.
+     -->
+
+    <item android:id="@+id/filter_top_rated"
+        android:title="@string/top_rated"
+        android:onClick="onItemClicked"/>
+
+
+    <item android:id="@+id/filter_popularity"
+        android:title="@string/popularity"
+        android:onClick="onItemClicked"/>
+
+    <item android:id="@+id/filter_genre"
+        android:title="@string/genre">
+        <!-- Starting the sub menu for genres -->
+        <menu>
+            <item
+                android:id="@+id/filter_genre_action"
+                android:title="@string/action"
+                android:onClick="onItemClicked"
+                />
+            <item
+                android:id="@+id/filter_genre_romance"
+                android:title="@string/romance"
+                android:onClick="onItemClicked"
+                />
+            <item
+                android:id="@+id/filter_genre_comedy"
+                android:title="@string/comedy"
+                android:onClick="onItemClicked"
+                />
+        </menu>
+    </item>
+
+    <item android:id="@+id/filter_now_showing"
+        android:title="@string/now_showing"
+        android:onClick="onItemClicked"/>
+
+    <item android:id="@+id/filter_upcoming"
+        android:title="@string/upcoming"
+        android:onClick="onItemClicked"/>
+
+</menu>
+<!--
+-->

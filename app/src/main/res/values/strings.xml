@@ -6,4 +6,18 @@
     <string name="title_movie">Movie</string>
     <string name="title_tv">TV</string>
     <string name="title_user">User</string>
+
+    <!-- Movie Filter Options -->
+    <string name="top_rated">Top Rated</string>
+    <string name="popularity">Popularity</string>
+    <string name="genre">Genre</string>
+    <string name="now_showing">Now Showing</string>
+    <string name="upcoming">Upcoming</string>
+
+    <!-- Genres -->
+    <string name="action">Action</string>
+    <string name="romance">Romance</string>
+    <string name="comedy">Comedy</string>
+
+
 </resources>

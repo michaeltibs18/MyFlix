@@ -7,6 +7,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,6 +17,7 @@ import com.tibayancorp.myflix.R;
 import com.tibayancorp.myflix.view.navigation_fragments.adapter.MovieListRecyclerViewAdapter;
 import com.tibayancorp.myflix.view.navigation_fragments.dummy.DummyContent;
 import com.tibayancorp.myflix.view.navigation_fragments.dummy.DummyContent.DummyItem;
+import com.tibayancorp.myflix.view_model.MovieListViewModel;
 
 /**
  * A fragment representing a list of Items.
@@ -22,6 +26,7 @@ import com.tibayancorp.myflix.view.navigation_fragments.dummy.DummyContent.Dummy
  * interface.
  */
 public class MoviesFragment extends Fragment {
+    private MovieListViewModel movieListViewModel;
 
     // TODO: Customize parameters
     private int mColumnCount = 1;
@@ -38,7 +43,23 @@ public class MoviesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.movie_filters, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+    /** From Menu Android Documentation for using android:onClick
+     *      Warning: If you obfuscate your code using ProGuard (or a similar tool),
+     *      be sure to exclude the method you specify in this attribute from renaming, because it can break the functionality.
+     *      https://developer.android.com/guide/topics/resources/menu-resource#java
+     */
+    public void onItemClicked(MenuItem item) {
+        movieListViewModel.onSelectedFilter(item.getTitle().toString());
     }
 
     @Override

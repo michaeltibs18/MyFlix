@@ -83,7 +83,13 @@ public interface MovieApiService {
      * Key = "api_key" and Value = API.Key
      * Key = "with_genres" and Value = <Comma separated value of genre ids that you want to include in the results>
      *
-     * Every selected genre will append their genre_id to the Value of Key “with_genres” with commas
+     * 10/20/18 Update:
+     * For Multiple Genre Selection in a submenu, this might be more complex.
+     I’ll restrict the filtering to one genre at a time, for this reason and for simplicity.
+     Since when multiple genres are selected, the resulting list will be mixed and might not be what the user will want.
+
+     Due to above reason, the below requirements may be reconsidered for future release/expansion
+        Every selected genre will append their genre_id to the Value of Key “with_genres” with commas
      */
 
     @GET("discover/movie")
