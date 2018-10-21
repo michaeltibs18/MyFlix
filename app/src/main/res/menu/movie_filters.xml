@@ -8,44 +8,52 @@
      the method in onClick is found in MoviesFragment.java since that's where the Menu is inflated.
      -->
 
-    <item android:id="@+id/filter_top_rated"
-        android:title="@string/top_rated"
-        android:onClick="onItemClicked"/>
+    <item android:id="@+id/filter_movie_list"
+        android:title="@string/filter_movie_list"
+        android:icon="@drawable/ic_filter_list_black_24dp"/>
+
+    <!-- Starting the sub menu for filters -->
+    <menu>
+        <item android:id="@+id/filter_top_rated"
+            android:title="@string/top_rated"
+            android:onClick="onItemClicked"/>
 
 
-    <item android:id="@+id/filter_popularity"
-        android:title="@string/popularity"
-        android:onClick="onItemClicked"/>
+        <item android:id="@+id/filter_popularity"
+            android:title="@string/popularity"
+            android:onClick="onItemClicked"/>
 
-    <item android:id="@+id/filter_genre"
-        android:title="@string/genre">
-        <!-- Starting the sub menu for genres -->
-        <menu>
-            <item
-                android:id="@+id/filter_genre_action"
-                android:title="@string/action"
-                android:onClick="onItemClicked"
-                />
-            <item
-                android:id="@+id/filter_genre_romance"
-                android:title="@string/romance"
-                android:onClick="onItemClicked"
-                />
-            <item
-                android:id="@+id/filter_genre_comedy"
-                android:title="@string/comedy"
-                android:onClick="onItemClicked"
-                />
-        </menu>
-    </item>
+        <item android:id="@+id/filter_genre"
+            android:title="@string/genre">
+            <!-- Starting the sub menu for genres -->
+            <menu>
+                <item
+                    android:id="@+id/filter_genre_action"
+                    android:title="@string/action"
+                    android:onClick="onItemClicked"
+                    />
+                <item
+                    android:id="@+id/filter_genre_romance"
+                    android:title="@string/romance"
+                    android:onClick="onItemClicked"
+                    />
+                <item
+                    android:id="@+id/filter_genre_comedy"
+                    android:title="@string/comedy"
+                    android:onClick="onItemClicked"
+                    />
+            </menu>
+        </item>
 
-    <item android:id="@+id/filter_now_showing"
-        android:title="@string/now_showing"
-        android:onClick="onItemClicked"/>
+        <item android:id="@+id/filter_now_showing"
+            android:title="@string/now_showing"
+            android:onClick="onItemClicked"/>
 
-    <item android:id="@+id/filter_upcoming"
-        android:title="@string/upcoming"
-        android:onClick="onItemClicked"/>
+        <item android:id="@+id/filter_upcoming"
+            android:title="@string/upcoming"
+            android:onClick="onItemClicked"/>
+    </menu>
+
 
 </menu>
 <!--

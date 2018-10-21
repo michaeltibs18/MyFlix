@@ -25,15 +25,19 @@ public class Movie {
     @SerializedName("id")
     private String id;
 
-    @SerializedName("imdb_id")
-    private String imdbId;
+   // @SerializedName("imdb_id")
+    //private String imdbId;
 
-    public Movie(String id, String title, String posterPath, String backdropPath, String overview) {
+    @SerializedName("release_date")
+    private String release_date;
+
+    public Movie(String id, String title, String posterPath, String backdropPath, String overview, String release_date) {
         this.posterPath = posterPath;
         this.backdropPath = backdropPath;
         this.overview = overview;
         this.title = title;
         this.id = id;
+        this.release_date = release_date;
     }
 
 
@@ -86,11 +90,19 @@ public class Movie {
         this.id = id;
     }
 
-    public String getImdbId() {
-        return imdbId;
+    //public String getImdbId() {
+      //  return imdbId;
+   // }
+
+   // public void setImdbId(String imdbId) {
+       // this.imdbId = imdbId;
+   // }
+
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
     }
 
-    public void setImdbId(String imdbId) {
-        this.imdbId = imdbId;
+    public String getRelease_date() {
+        return release_date;
     }
 }

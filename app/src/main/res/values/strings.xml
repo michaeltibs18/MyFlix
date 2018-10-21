@@ -7,6 +7,9 @@
     <string name="title_tv">TV</string>
     <string name="title_user">User</string>
 
+    <!-- Filter List -->
+    <string name="filter_movie_list">Filter Movies</string>
+
     <!-- Movie Filter Options -->
     <string name="top_rated">Top Rated</string>
     <string name="popularity">Popularity</string>

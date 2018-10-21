@@ -28,7 +28,8 @@ import static com.tibayancorp.myflix.utilities.API.KEY;
 
 public class MovieApiCalls {
     private List<Movie> movies;
-
+    private boolean success = false;
+    private int orderOfCall;
     /******* Movie List Filter Options Implementation *******/
 
     public void callTopRatedMoviesAPI(){
@@ -89,7 +90,7 @@ public class MovieApiCalls {
         The Genre Set passed must be in this format: "21,22,121"
         Every selection of the user in Genre submenu must be appended and handled by the ViewModel calling this method
 
-        */
+    */
 
     public void callGenreAPI(String genre){
         if (genre == null){
@@ -128,7 +129,7 @@ public class MovieApiCalls {
     /** Will need to call this twice in ViewModel and merge both US and Philippines results
      * regionValue = "PH" or "US" */
 
-    public void callNowShowingMoviesAPI(String regionValue){
+    public void callNowShowingMoviesAPI(String regionValue, final int orderOfCall){
         MovieApiService movieApiService = RetrofitFactory.callMovieInterface();
         Map<String, String> params = new HashMap<>();
         params.put("api_key", API.KEY);
@@ -138,10 +139,30 @@ public class MovieApiCalls {
             @Override
             public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
                 try {
+                    Log.d(TAG,"Request: " + call.request().toString());
                     if (response.isSuccessful()) {
-                        List<Movie> movies = response.body().getResults();
-                        setMovieListResult(movies);
-                        Log.d(TAG, "Number of movies received: " + movies.size());
+                        if(getMovieListResult() == null && orderOfCall == 1) {
+                            List<Movie> movies = response.body().getResults();
+                            setMovieListResult(movies);
+                            setSuccessful(true, orderOfCall);
+                            Log.d(TAG, "Number of movies received: " + movies.size());
+                        }
+
+                        if(getMovieListResult() != null && getMovieListResult().size() > 0 && orderOfCall == 2){
+                            List<Movie> movies = response.body().getResults();
+                            getMovieListResult().addAll(movies);
+                            setSuccessful(true, orderOfCall);
+                            Log.d(TAG, "Number of movies received: " + movies.size());
+                            Log.d(TAG, "Number of movies total received: " + getMovieListResult().size());
+                        } else {
+                            setSuccessful(true, orderOfCall);
+                            Log.e(TAG, "No movies were added to the list" + getMovieListResult().size());
+                            Log.e(TAG, "Movie List size: " + getMovieListResult().size()
+                                    + "\nMovies from Response size: " + movies.size());
+
+                        }
+                    } else {
+                        setSuccessful(false, orderOfCall);
                     }
                 } catch (Exception e){
                     e.printStackTrace();
@@ -157,20 +178,38 @@ public class MovieApiCalls {
     /** Will need to call this twice in ViewModel and merge both US and Philippines results
      * regionValue = "PH" or "US" */
 
-    public void callUpcomingMoviesAPI(String regionValue){
+    public void callUpcomingMoviesAPI(String regionValue, final int orderOfCall){
         MovieApiService movieApiService = RetrofitFactory.callMovieInterface();
         Map<String, String> params = new HashMap<>();
         params.put("api_key", API.KEY);
         params.put("region", regionValue);
         Call<MovieListResponse> call = movieApiService.getUpcomingMovies(params);
-        call.enqueue(new Callback<MovieListResponse>(){
+        Callback<MovieListResponse> callback = new Callback<MovieListResponse>(){
             @Override
             public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
                 try {
                     if (response.isSuccessful()) {
-                        List<Movie> movies = response.body().getResults();
-                        setMovieListResult(movies);
-                        Log.d(TAG, "Number of movies received: " + movies.size());
+                        if(getMovieListResult() == null && orderOfCall == 1) {
+                            List<Movie> movies = response.body().getResults();
+                            setMovieListResult(movies);
+                            setSuccessful(true, orderOfCall);
+                            Log.d(TAG, "Number of movies received: " + movies.size());
+                        }
+
+                        if(getMovieListResult() != null && getMovieListResult().size() > 0 && orderOfCall == 2){
+                            List<Movie> movies = response.body().getResults();
+                            getMovieListResult().addAll(movies);
+                            setSuccessful(true, orderOfCall);
+                            Log.d(TAG, "Number of movies received: " + movies.size());
+                            Log.d(TAG, "Number of movies total received: " + getMovieListResult().size());
+                        } else {
+                            setSuccessful(true, orderOfCall);
+                            Log.e(TAG, "No movies were added to the list" + getMovieListResult().size());
+                            Log.e(TAG, "Movie List size: " + getMovieListResult().size()
+                                    + "\nMovies from Response size: " + movies.size());
+                        }
+                    } else {
+                        setSuccessful(false, orderOfCall);
                     }
                 } catch (Exception e){
                     e.printStackTrace();
@@ -180,8 +219,11 @@ public class MovieApiCalls {
             public void onFailure(Call<MovieListResponse> call, Throwable throwable) {
                 Log.e(TAG, throwable.toString());
             }
-        });
+        };
+        call.enqueue(callback);
     }
+
+
 
     public void setMovieListResult(List<Movie> movies){
         this.movies = movies;
@@ -189,5 +231,18 @@ public class MovieApiCalls {
 
     public List<Movie> getMovieListResult(){
             return movies;
+    }
+
+    public boolean isSuccessful() {
+        return success;
+    }
+
+    public int getOrderOfCall(){
+        return orderOfCall;
+    }
+
+    public void setSuccessful(boolean success, int orderOfCall) {
+        this.success = success;
+        this.orderOfCall = orderOfCall;
     }
 }
