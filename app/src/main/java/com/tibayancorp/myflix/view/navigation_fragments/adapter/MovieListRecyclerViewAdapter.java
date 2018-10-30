@@ -36,6 +36,13 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
         return new ViewHolder(view);
     }
 
+    public void clearApplications() {
+        int size = this.movieList.size();
+        movieList.clear();
+        notifyItemRangeRemoved(0, size);
+        }
+    }
+    
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.movieItem = movieList.get(position);
@@ -61,7 +68,7 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return movieList == null ? 0 : movieList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
