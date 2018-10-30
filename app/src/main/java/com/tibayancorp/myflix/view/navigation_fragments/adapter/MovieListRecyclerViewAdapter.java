@@ -36,7 +36,7 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
         return new ViewHolder(view);
     }
 
-    public void clearApplications() {
+    public void clearAll() {
         int size = this.movieList.size();
         movieList.clear();
         notifyItemRangeRemoved(0, size);
