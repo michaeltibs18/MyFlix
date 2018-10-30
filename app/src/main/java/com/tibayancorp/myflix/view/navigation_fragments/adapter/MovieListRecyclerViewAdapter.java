@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.tibayancorp.myflix.R;
 import com.tibayancorp.myflix.view.navigation_fragments.MoviesFragment.OnListFragmentInteractionListener;
 import com.tibayancorp.myflix.view.navigation_fragments.dummy.DummyContent.DummyItem;
+import com.tibayancorp.myflix.model.entities.Movie;
 
 import java.util.List;
 
@@ -19,11 +21,11 @@ import java.util.List;
  */
 public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieListRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Movie> movieList;
     private final OnListFragmentInteractionListener mListener;
 
-    public MovieListRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public MovieListRecyclerViewAdapter(List<Movie> items, OnListFragmentInteractionListener listener) {
+        movieList = items;
         mListener = listener;
     }
 
@@ -36,9 +38,14 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.movieItem = movieList.get(position);
+        holder.movieTitleView.setText(movieList.get(position).getTitle());
+        holder.movieDescriptionView.setText(movieList.get(position).getOverview());
+        holder.movieRatingView.setText(movieList.get(position).getVote_average());
+        //holder.moviePosterView.setText(movieList.get(position).content); This is where Picasso will be used for Loading the image.
+        
+        /* Review this code first before running. */
+        Picasso.get().load(API.IMAGE_BASE_URL+movieList.get(position).getBackdropPath()).into(holder.moviePosterView);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +53,7 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(holder.movieItem);
                 }
             }
         });
@@ -59,20 +66,24 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView movieTitleView;
+        public final TextView movieDescriptionView;
+        public final TextView movieRatingView;
+        public final ImageView moviePosterView;
+        public Movie movieItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            movieTitleView = (TextView) view.findViewById(R.id.movieItemTitle);
+            movieDescriptionView = (TextView) view.findViewById(R.id.movieItemDescription);
+            movieRatingView = (TextView) view.findViewById(R.id.movieItemRating);
+            moviePosterView = (TextView) view.findViewById(R.id.movieItemPoster);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + movieTitleView.getText() + "'";
         }
     }
 }
