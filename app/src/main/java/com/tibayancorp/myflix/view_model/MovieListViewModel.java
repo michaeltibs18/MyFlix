@@ -26,18 +26,43 @@ public class MovieListViewModel {
         switch (filter){
             case "Top Rated":
                 movieApiCalls.callTopRatedMoviesAPI();
+                if(movieApiCalls.isSuccessful() == true){
+                    setMovieList(movieApiCalls.getMovieListResult());
+                } else {
+                    Log.e(TAG,"Top Rated Movies API Call was not successful");
+                }
                 break;
             case "Popularity":
                 movieApiCalls.callPopularMoviesAPI();
+                if(movieApiCalls.isSuccessful() == true){
+                    setMovieList(movieApiCalls.getMovieListResult());
+                } else {
+                    Log.e(TAG,"Popular Movies API Call was not successful");
+                }
                 break;
             case "Action":
                 movieApiCalls.callGenreAPI(genres[0]);
+                if(movieApiCalls.isSuccessful() == true){
+                    setMovieList(movieApiCalls.getMovieListResult());
+                } else {
+                    Log.e(TAG,"Action Genre API Call was not successful");
+                }
                 break;
             case "Romance":
                 movieApiCalls.callGenreAPI(genres[1]);
+                if(movieApiCalls.isSuccessful() == true){
+                    setMovieList(movieApiCalls.getMovieListResult());
+                } else {
+                    Log.e(TAG,"Romance Genre API Call was not successful");
+                }
                 break;
             case "Comedy":
                 movieApiCalls.callGenreAPI(genres[2]);
+                if(movieApiCalls.isSuccessful() == true){
+                    setMovieList(movieApiCalls.getMovieListResult());
+                } else {
+                    Log.e(TAG,"Comedy Genre API Call was not successful");
+                }
                 break;
             case "Upcoming":
                 // must call it twice for PH and US Regions
