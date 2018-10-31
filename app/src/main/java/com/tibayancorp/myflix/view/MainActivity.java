@@ -18,8 +18,10 @@ import com.tibayancorp.myflix.view.navigation_fragments.HomeFragment;
 import com.tibayancorp.myflix.view.navigation_fragments.MoviesFragment;
 import com.tibayancorp.myflix.view.navigation_fragments.TVFragment;
 import com.tibayancorp.myflix.view.navigation_fragments.UserFragment;
+import com.tibayancorp.myflix.view.navigation_fragments.dummy.DummyContent;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeFragment.OnListFragmentInteractionListener,MoviesFragment.OnListFragmentInteractionListener
+        ,TVFragment.OnListFragmentInteractionListener,UserFragment.OnListFragmentInteractionListener {
 
     private TextView mTextMessage;
     final Fragment fragment1 = new HomeFragment();
@@ -75,4 +77,8 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
 }

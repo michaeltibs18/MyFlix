@@ -1,6 +1,18 @@
 package com.tibayancorp.myflix.model.Entities;
 
+import android.text.format.DateFormat;
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by JanMichael on 23/09/2018.
@@ -104,5 +116,21 @@ public class Movie {
 
     public String getRelease_date() {
         return release_date;
+    }
+
+    public Date getReleaseDate(){
+        if(getRelease_date() != null){
+            Date date = null;
+            try {
+                date = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse(getRelease_date());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return  date;
+            //System.out.println(date); // 2010-01-02
+        } else {
+            Log.e(TAG,"Release Date String from API is null");
+            return null;
+        }
     }
 }

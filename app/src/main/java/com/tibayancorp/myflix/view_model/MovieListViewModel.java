@@ -5,6 +5,8 @@ import android.util.Log;
 import com.tibayancorp.myflix.model.Api_Calls.MovieApiCalls;
 import com.tibayancorp.myflix.model.Entities.Movie;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -72,13 +74,16 @@ public class MovieListViewModel {
         }
     }
 
+    //Learn the solution here again: https://stackoverflow.com/questions/5927109/sort-objects-in-arraylist-by-date#
+
     public void sortMovieListByReleaseDate(List<Movie> movies){
-        if(movies != null && movies.size() > 0){
-            for(int i = 0; i > movies.size(); i++){
-                String date = movies.get(i).getRelease_date();
-                
+        Collections.sort(movies, new Comparator<Movie>() {
+            public int compare(Movie o1, Movie o2) {
+                if (o1.getReleaseDate() == null || o2.getReleaseDate() == null)
+                    return 0;
+                return o1.getReleaseDate().compareTo(o2.getReleaseDate());
             }
-        }
+        });
     }
     public void setMovieList(List<Movie> movies){
         this.movies = movies;
