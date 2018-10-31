@@ -42,6 +42,7 @@ public class MovieApiCalls {
                     if (response.isSuccessful()) {
                         List<Movie> movies = response.body().getResults();
                         setMovieListResult(movies);
+                        setSuccessful(true);
                         Log.d(TAG, "Number of movies received: " + movies.size());
                     }
                 } catch (Exception e){
@@ -68,6 +69,7 @@ public class MovieApiCalls {
                     if (response.isSuccessful()) {
                         List<Movie> movies = response.body().getResults();
                         setMovieListResult(movies);
+                        setSuccessful(true);
                         Log.d(TAG, "Number of movies received: " + movies.size());
                     }
                 } catch (Exception e){
@@ -111,6 +113,7 @@ public class MovieApiCalls {
                         if (response.isSuccessful()) {
                             List<Movie> movies = response.body().getResults();
                             setMovieListResult(movies);
+                            setSuccessful(true);
                             Log.d(TAG, "Number of movies received: " + movies.size());
                         }
                     } catch (Exception e) {
@@ -244,5 +247,9 @@ public class MovieApiCalls {
     public void setSuccessful(boolean success, int orderOfCall) {
         this.success = success;
         this.orderOfCall = orderOfCall;
+    }
+    
+    public void setSuccessful(boolean success) {
+        this.success = success;
     }
 }

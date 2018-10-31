@@ -28,6 +28,9 @@ public class Movie {
     @SerializedName("overview")
     private String overview;
 
+    @SerializedName("vote_average")
+    private String vote_average;
+
     @SerializedName("original_title")
     private String originalTitle;
 
@@ -43,13 +46,14 @@ public class Movie {
     @SerializedName("release_date")
     private String release_date;
 
-    public Movie(String id, String title, String posterPath, String backdropPath, String overview, String release_date) {
+    public Movie(String id, String title, String posterPath, String backdropPath, String overview, String release_date, String vote_average) {
         this.posterPath = posterPath;
         this.backdropPath = backdropPath;
         this.overview = overview;
         this.title = title;
         this.id = id;
         this.release_date = release_date;
+        this.vote_average = vote_average;
     }
 
 
@@ -116,6 +120,14 @@ public class Movie {
 
     public String getRelease_date() {
         return release_date;
+    }
+
+    public void setVote_average(String vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public String getVote_average() {
+        return vote_average;
     }
 
     public Date getReleaseDate(){

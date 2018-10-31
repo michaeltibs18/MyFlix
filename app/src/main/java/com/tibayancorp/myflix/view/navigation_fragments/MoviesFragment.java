@@ -27,9 +27,12 @@ import com.tibayancorp.myflix.view_model.MovieListViewModel;
  */
 public class MoviesFragment extends Fragment {
     private MovieListViewModel movieListViewModel;
-
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
     // TODO: Customize parameters
     private int mColumnCount = 1;
+    
+    private String initialList = "Top Rated";
 
     private OnListFragmentInteractionListener mListener;
 
@@ -44,6 +47,8 @@ public class MoviesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        // Initialize the first list of movies that will show in this fragment.
+        movieListViewModel.onSelectedFilter(initialList);
     }
 
     @Override
@@ -58,9 +63,6 @@ public class MoviesFragment extends Fragment {
      *      be sure to exclude the method you specify in this attribute from renaming, because it can break the functionality.
      *      https://developer.android.com/guide/topics/resources/menu-resource#java
      */
-    public void onItemClicked(MenuItem item) {
-        movieListViewModel.onSelectedFilter(item.getTitle().toString());
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,18 +72,29 @@ public class MoviesFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view.findViewById(R.id.movieRecyclerView);
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MovieListRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            adapter = new MovieListRecyclerViewAdapter(movieListViewModel.getMovieList(), mListener);
+            recyclerView.setAdapter(adapter);
         }
         return view;
     }
 
 
+    public void onItemClicked(MenuItem item) {
+        movieListViewModel.onSelectedFilter(item.getTitle().toString());
+        if(adapter == null){
+            adapter = new MovieListRecyclerViewAdapter(movieListViewModel.getMovieList(), mListener);
+        } else if (adapter.getItemCount() > 0){
+            adapter.clearAll();
+        }
+        recyclerView.setAdapter(adapter);
+    }
+    
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
