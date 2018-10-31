@@ -19,6 +19,7 @@ import com.tibayancorp.myflix.view.navigation_fragments.MoviesFragment;
 import com.tibayancorp.myflix.view.navigation_fragments.TVFragment;
 import com.tibayancorp.myflix.view.navigation_fragments.UserFragment;
 import com.tibayancorp.myflix.view.navigation_fragments.dummy.DummyContent;
+import com.tibayancorp.myflix.model.Entities.Movie;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.OnListFragmentInteractionListener,MoviesFragment.OnListFragmentInteractionListener
         ,TVFragment.OnListFragmentInteractionListener,UserFragment.OnListFragmentInteractionListener {
@@ -79,6 +80,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnLi
 
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(Movie movieItem) {
 
     }
 }

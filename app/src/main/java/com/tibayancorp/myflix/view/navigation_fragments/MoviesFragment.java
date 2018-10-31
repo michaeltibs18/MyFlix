@@ -18,6 +18,7 @@ import com.tibayancorp.myflix.view.navigation_fragments.adapter.MovieListRecycle
 import com.tibayancorp.myflix.view.navigation_fragments.dummy.DummyContent;
 import com.tibayancorp.myflix.view.navigation_fragments.dummy.DummyContent.DummyItem;
 import com.tibayancorp.myflix.view_model.MovieListViewModel;
+import com.tibayancorp.myflix.model.Entities.Movie;
 
 /**
  * A fragment representing a list of Items.
@@ -28,10 +29,10 @@ import com.tibayancorp.myflix.view_model.MovieListViewModel;
 public class MoviesFragment extends Fragment {
     private MovieListViewModel movieListViewModel;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private MovieListRecyclerViewAdapter adapter;
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    
+
     private String initialList = "Top Rated";
 
     private OnListFragmentInteractionListener mListener;
@@ -94,7 +95,7 @@ public class MoviesFragment extends Fragment {
         }
         recyclerView.setAdapter(adapter);
     }
-    
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -124,6 +125,6 @@ public class MoviesFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Movie movieItem);
     }
 }

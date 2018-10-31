@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import com.tibayancorp.myflix.R;
 import com.tibayancorp.myflix.view.navigation_fragments.MoviesFragment.OnListFragmentInteractionListener;
 import com.tibayancorp.myflix.view.navigation_fragments.dummy.DummyContent.DummyItem;
-import com.tibayancorp.myflix.model.entities.Movie;
+import com.tibayancorp.myflix.model.Entities.Movie;
+import com.tibayancorp.myflix.utilities.API;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -40,9 +42,8 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
         int size = this.movieList.size();
         movieList.clear();
         notifyItemRangeRemoved(0, size);
-        }
     }
-    
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.movieItem = movieList.get(position);
@@ -50,9 +51,9 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
         holder.movieDescriptionView.setText(movieList.get(position).getOverview());
         holder.movieRatingView.setText(movieList.get(position).getVote_average());
         //holder.moviePosterView.setText(movieList.get(position).content); This is where Picasso will be used for Loading the image.
-        
+
         /* Review this code first before running. */
-        Picasso.get().load(API.IMAGE_BASE_URL+movieList.get(position).getBackdropPath()).into(holder.moviePosterView);
+        //Picasso.get().load(API.IMAGE_URL_BASE_PATH+movieList.get(position).getBackdropPath()).into(holder.moviePosterView);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +72,7 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
         return movieList == null ? 0 : movieList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView movieTitleView;
         public final TextView movieDescriptionView;
@@ -85,7 +86,7 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
             movieTitleView = (TextView) view.findViewById(R.id.movieItemTitle);
             movieDescriptionView = (TextView) view.findViewById(R.id.movieItemDescription);
             movieRatingView = (TextView) view.findViewById(R.id.movieItemRating);
-            moviePosterView = (TextView) view.findViewById(R.id.movieItemPoster);
+            moviePosterView = (ImageView) view.findViewById(R.id.movieItemPoster);
         }
 
         @Override
